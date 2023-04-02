@@ -1,0 +1,54 @@
+body {
+    background-color: cadetblue;
+    background-image: url('pozamedicala.webp');
+    background-size: cover;
+}
+.login {
+    border-radius: 10px;
+    font-size: 22px;
+    background-color: rgb(247, 254, 255);
+    margin: 100px auto;
+    width: 400px;
+    height: auto;
+    text-align: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+input[type = "text"]{
+    height:27px;
+    width:300px; 
+    font-size: 20px; 
+    border:none;
+    border-bottom: 1px solid rgb(192, 192, 192);
+}
+
+input[type = "password"]{
+    height:27px;
+    width:300px; 
+    font-size: 20px; 
+    border:none;
+    border-bottom: 1px solid rgb(192, 192, 192);
+}
+
+label {
+    margin-top: 20px;
+    display:block;
+
+}
+
+button {
+    border-radius: 5px;
+    font-size: 25px;
+    color :white;
+    width: 150px;
+    height:40px;
+    background-color: rgb(66, 109, 110);
+    margin-top: 30px;
+    border-width: 1px;
+}
+button:hover {
+    background-color: rgb(44, 73, 73);
+}
+.buttonc {
+    display: block;
+}
