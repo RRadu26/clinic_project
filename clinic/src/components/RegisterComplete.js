@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import './login_style.css'
 import { NavLink } from 'react-router-dom';
-class RegisterComplete extends React.Component {
-    render() {
 
+const RegisterComplete = () => {
         return (
             <div className='login'>
                 <h2>The registration was complete!</h2>
@@ -11,8 +10,6 @@ class RegisterComplete extends React.Component {
                 <NavLink to='../' style={{marginTop:100, display:'block', textDecoration:'none'}}> Press here to login</NavLink>
             </div>
         )
-    }
 }
-
 
 export default RegisterComplete;

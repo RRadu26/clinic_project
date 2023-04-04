@@ -12,7 +12,7 @@ public class Patient_accountServiceImpl implements Patient_accountService{
     @Override
     public Patient_account savePatient_account(Patient_account patient_account) {
         if(patient_accountRepository.findByEmail(patient_account.getEmail()) != null) {
-            throw new RuntimeException("User already exists");
+            throw new RuntimeException("User_exists");
         }
         return patient_accountRepository.save(patient_account);
     }

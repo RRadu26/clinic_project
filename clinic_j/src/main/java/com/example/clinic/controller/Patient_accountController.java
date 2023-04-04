@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/patientaccount")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class Patient_accountController {
     @Autowired
     private Patient_accountService patient_accountService;
@@ -16,7 +17,7 @@ public class Patient_accountController {
         try {
             patient_accountService.savePatient_account(patient_account);
         } catch (RuntimeException e) {
-            return "User already exists";
+            return "UserExists";
         }
         return "Saved";
     }
