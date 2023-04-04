@@ -7,7 +7,7 @@ import Login from "./components/Login"
 import RegisterDoctor from './components/RegisterDoctor';
 import Forgotpass from './components/Forgotpass';
 import RegisterComplete from './components/RegisterComplete';
-
+import HomePatient from './components/HomePatient';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +18,7 @@ const router = createBrowserRouter(
     <Route path='registerdoctor' element={<RegisterDoctor/>}/>
     <Route path='passforgot' element={<Forgotpass/>}/>
     <Route path='registercomplete' element={<RegisterComplete/>}/>
+    <Route path='homepage' element={<HomePatient/>}/>
 
 
     </Route>

@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/patientaccount")
+@RequestMapping("/register")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class Patient_accountController {
     @Autowired
     private Patient_accountService patient_accountService;
 
-    @PostMapping("/add")
+    @PostMapping("/addpatient")
     public String add(@RequestBody Patient_account patient_account) {
         try {
             patient_accountService.savePatient_account(patient_account);

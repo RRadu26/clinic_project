@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import './register_style.css'
+import { sha3_256 } from 'js-sha3';
 
 const RegisterDoctor = () => {
 
@@ -14,6 +15,7 @@ const RegisterDoctor = () => {
     const [education, setEducation] = useState('')
     const [specialization, setSpecialization] = useState('s1')
     const [doccode, setDoccode] = useState('')
+    const url = "http://localhost:8080/register/adddoctor"
 
 
     const validate_input = () => {
@@ -40,11 +42,26 @@ const RegisterDoctor = () => {
         return true;
     }
 
-    const HandleSubmit = (event) =>{
+    const HandleSubmit = async (event) =>{
         event.preventDefault();
         let valid = validate_input();
+        let passkey = sha3_256(password);
         if(valid) {
-            Navigate('../registercomplete')
+            const credentials = {email:email, password:passkey, 
+                first_name:firstname, surname:surname,
+                birthdate:birthdate, education:education,
+                specialization:specialization, doccode:doccode}
+                const response = await fetch(url, {
+                    method:'POST',
+                    headers:{'Content-Type':'application/json'},
+                    body:JSON.stringify(credentials)
+                })
+                const responseStatus = await response.text()
+                if(responseStatus === 'UserExists')
+                    setError(5)
+                if(responseStatus === 'BadDoccode')
+                    setError(6)
+                console.log(responseStatus)
         }
         setPassword('')
 
@@ -99,6 +116,8 @@ const RegisterDoctor = () => {
                 {error === 2 && <p style={{fontSize:17, color: 'red'}}>Invalid email</p>}
                 {error === 3 && <p style={{fontSize:17, color: 'red'}}>Password must have minimum 8 characters</p>}
                 {error === 4 && <p style={{fontSize:17, color: 'red'}}>Doctor code must have 12 characters</p>}
+                {error === 5 && <p style={{fontSize:17, color: 'red'}}>Account already exists</p>}
+                {error === 6 && <p style={{fontSize:17, color: 'red'}}>Invalid doccode</p>}
 
                 <p style={{fontSize:17, marginTop:200}}>Already a member? <NavLink to = "/" style={{textDecoration: "none"}}>Login</NavLink> </p>
 

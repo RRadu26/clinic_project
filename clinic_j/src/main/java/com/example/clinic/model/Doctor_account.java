@@ -1,9 +1,6 @@
 package com.example.clinic.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -20,6 +17,16 @@ public class Doctor_account {
     private LocalDate birthdate;
     private String education;
     private String specialization;
+    @Transient
+    private String doccode;
+
+    public String getDoccode() {
+        return doccode;
+    }
+
+    public void setDoccode(String doccode) {
+        this.doccode = doccode;
+    }
 
     public Doctor_account() {
     }

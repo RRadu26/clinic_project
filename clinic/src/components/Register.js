@@ -11,7 +11,7 @@ const Register = () => {
     const [surname, setSurname] = useState('')
     const [birthdate, setBirthdate] = useState('')
     const [error, setError] = useState(0)
-    const url = "http://localhost:8080/patientaccount/add"
+    const url = "http://localhost:8080/register/addpatient"
 
     const validate_input = () => {
         if(email.length === 0 || password.length ===0
@@ -50,7 +50,6 @@ const Register = () => {
                 setError(4)
             else
                 Navigate('../registercomplete')
-
         }
         // setPassword('');
     
