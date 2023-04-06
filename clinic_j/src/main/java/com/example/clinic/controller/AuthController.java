@@ -1,31 +1,46 @@
 package com.example.clinic.controller;
 
+import com.example.clinic.dto.AuthResponseDTO;
 import com.example.clinic.dto.LoginDto;
-import com.example.clinic.model.Doctor_account;
-import com.example.clinic.service.Doctor_accountService;
-import com.example.clinic.service.Patient_accountService;
+import com.example.clinic.security.JWTGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/login")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
+
     @Autowired
-    private Doctor_accountService doctor_accountService;
+    private AuthenticationManager authenticationManager;
     @Autowired
-    private Patient_accountService patient_accountService;
-    @GetMapping("/logme")
+    private JWTGenerator jwtGenerator;
+
+    public AuthController(AuthenticationManager authenticationManager, JWTGenerator jwtGenerator) {
+        this.authenticationManager = authenticationManager;
+        this.jwtGenerator = jwtGenerator;
+    }
+
+    @PostMapping("/logme")
     public ResponseEntity add(@RequestBody LoginDto loginDto) {
-        try {
-            doctor_accountService.saveDoctor_account(doctor_account);
-        } catch (RuntimeException e) {
-            if(e.getMessage().equals("User_exists"))
-                return "UserExists";
-            else if(e.getMessage().equals("Bad_doccode"))
-                return("BadDoccode");
-        }
-        return "Saved";
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginDto.getEmail(),
+                        loginDto.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtGenerator.generateToken(authentication);
+        ArrayList<SimpleGrantedAuthority> authoritieslist= new ArrayList<>((Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+
+        return new ResponseEntity<>(new AuthResponseDTO(token, authoritieslist.get(0).toString()), HttpStatus.OK);
     }
 }

@@ -1,9 +1,8 @@
 package com.example.clinic.security;
 
-import com.example.clinic.model.Doctor_account;
-import com.example.clinic.model.Patient_account;
-import com.example.clinic.repository.Doctor_accountRespository;
-import com.example.clinic.repository.Patient_accountRepository;
+import com.example.clinic.model.Account;
+import com.example.clinic.model.Role;
+import com.example.clinic.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,38 +12,30 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService  implements UserDetailsService {
+
+    private AccountRepository userRepository;
+
     @Autowired
-    Patient_accountRepository patientAccountRepository;
-    @Autowired
-    Doctor_accountRespository doctorAccountRespository;
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Patient_account patient_account= patientAccountRepository.findByEmail(email);
-
-        if(patient_account != null) {
-            return new User(patient_account.getEmail(), patient_account.getPassword(), mapRolesToAuthorities(1));
-        }
-
-        Doctor_account doctor_account= doctorAccountRespository.findByEmail(email);
-        if(doctor_account != null) {
-            return new User(doctor_account.getEmail(), doctor_account.getPassword(), mapRolesToAuthorities(2));
-        }
-        throw new RuntimeException("nouserfound");
-
+    public CustomUserDetailsService(AccountRepository userRepository) {
+        this.userRepository = userRepository;
     }
-    private Collection<GrantedAuthority> mapRolesToAuthorities(int role) {
-        Collection<GrantedAuthority> collection = new ArrayList<>();
-        if(role == 1)
-            collection.add(new SimpleGrantedAuthority("Patient"));
-        else if(role == 2)
-            collection.add(new SimpleGrantedAuthority("Doctor"));
-        return collection;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Account user = userRepository.findByEmail(username);
+        if(user == null) {
+            throw new UsernameNotFoundException("Username not found");
+        }
+        return new User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+    }
+
+    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 }
-

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
-
+import { sha3_256 } from 'js-sha3';
 import './login_style.css'
+const url = "http://localhost:8080/login/logme"
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -26,9 +27,20 @@ const Login = () => {
         return true;
     }
 
-    const HandleSubmit = (event) =>{
+    const HandleSubmit = async (event) =>{
         event.preventDefault();
-        let valid = this.validate_input();
+        let valid = validate_input();
+        if(valid) {
+            let passkey = sha3_256(password);
+            const credentials = {email:email, password:passkey}
+            const response = await fetch(url, {
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify(credentials)
+            })
+            const responseStatus = await response.text()
+            console.log(responseStatus)
+        }
         setPassword('')
     }
 

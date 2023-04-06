@@ -59,9 +59,10 @@ const RegisterDoctor = () => {
                 const responseStatus = await response.text()
                 if(responseStatus === 'UserExists')
                     setError(5)
-                if(responseStatus === 'BadDoccode')
+                else if(responseStatus === 'BadDoccode')
                     setError(6)
-                console.log(responseStatus)
+                else
+                Navigate('../registercomplete')
         }
         setPassword('')
 
