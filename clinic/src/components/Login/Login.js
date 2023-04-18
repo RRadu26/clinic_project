@@ -37,7 +37,7 @@ const Login = () => {
         }
     }
 
-    useEffect(() => {trylogin()})
+    useEffect(() => {trylogin()}, [])
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

@@ -90,7 +90,7 @@ select {
     border:none;
     border-bottom: 1px solid rgb(192, 192, 192);
 }
-button {
+.base button {
     border-radius: 5px;
     font-size: 25px;
     color :white;
@@ -99,7 +99,7 @@ button {
     background-color: rgb(66, 109, 110);
     margin-top: 30px;
 }
-button:hover {
+.base button:hover {
     background-color: rgb(44, 73, 73);
 }
 .buttonc {

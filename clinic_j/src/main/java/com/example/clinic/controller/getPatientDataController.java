@@ -19,12 +19,32 @@ public class getPatientDataController {
     private JWTGenerator jwtGenerator;
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize(("permitAll"))
-    @GetMapping("/patientdata")
-    public ResponseEntity getpatientname(@RequestHeader("Authorization") String auth) {
+    @GetMapping("/mydata")
+    public ResponseEntity getmydata(@RequestHeader("Authorization") String auth) {
             String token = auth.substring(auth.indexOf("Bearer") + 7, auth.length());
             String email = jwtGenerator.getUsernameFromJWT(token);
             return new ResponseEntity<>(patientDataService.getPatientData(email),HttpStatus.OK);
-
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("permitAll"))
+    @GetMapping("/myconsultations")
+    public ResponseEntity getmyconsultations(@RequestHeader("Authorization") String auth) {
+        String token = auth.substring(auth.indexOf("Bearer") + 7, auth.length());
+        String email = jwtGenerator.getUsernameFromJWT(token);
+        return new ResponseEntity<>(patientDataService.getMyConsultations(email), HttpStatus.OK);
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("permitAll"))
+    @GetMapping("/myfoodprograms")
+    public ResponseEntity getmyfoodprograms(@RequestHeader("Authorization") String auth) {
+        String token = auth.substring(auth.indexOf("Bearer") + 7, auth.length());
+        String email = jwtGenerator.getUsernameFromJWT(token);
+        return new ResponseEntity<>(patientDataService.getMyFoodPrograms(email), HttpStatus.OK);
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("permitAll"))
+    @GetMapping("/getdoctors")
+    public ResponseEntity getdoctorslist() {
+        return new ResponseEntity<>(patientDataService.getDoctors(null, null), HttpStatus.OK);
+    }
 }
