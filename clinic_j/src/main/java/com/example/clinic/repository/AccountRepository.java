@@ -1,9 +1,6 @@
 package com.example.clinic.repository;
 
-import com.example.clinic.dto.ConsultationDTO;
-import com.example.clinic.dto.DoctorForListDTO;
-import com.example.clinic.dto.FoodProgramDTO;
-import com.example.clinic.dto.userDataDTO;
+import com.example.clinic.dto.*;
 import com.example.clinic.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -48,4 +45,17 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             "FROM Account d " +
             "WHERE d.accType = 2 AND CONCAT(d.first_name, ' ', d.surname) LIKE %?1% AND d.specialization = ?2")
     List<DoctorForListDTO> getNamedSpecialisedDoctors(String name, String specialization);
+
+    @Query(value= "SELECT new com.example.clinic.dto.PatientForListDTO(p.id, CONCAT(p.first_name, ' ', p.surname), p.birthdate)" +
+            "FROM Account p, Account d, PatientDoctor pd WHERE pd.d_id = d.id AND pd.p_id = p.id AND d.email = ?1")
+    List<PatientForListDTO> getAllMyPatients(String email);
+
+    @Query(value= "SELECT new com.example.clinic.dto.PatientForListDTO(p.id, CONCAT(p.first_name, ' ', p.surname), p.birthdate)" +
+            "FROM Account p, Account d, PatientDoctor pd WHERE pd.d_id = d.id AND pd.p_id = p.id AND d.email = ?1 " +
+            "AND CONCAT(p.first_name, ' ', p.surname) LIKE %?2%")
+    List<PatientForListDTO> getNamedPatients(String email, String name);
+
+    @Query(value= "SELECT new com.example.clinic.dto.PatientForListDTO(p.id, CONCAT(p.first_name, ' ', p.surname), p.birthdate)" +
+            "FROM Account p WHERE p.id=?1 ")
+    PatientForListDTO getPatientById(int id);
 }

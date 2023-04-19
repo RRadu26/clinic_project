@@ -2,35 +2,27 @@ import { useEffect, useState } from 'react'
 import lupa from '../PatientFiles/images/icon_lupa.png'
 import { NavLink } from 'react-router-dom'
 import DoctorPagesContent from './DoctorPagesContent'
-const getConsultationsUrl = 'http://localhost:8080/patientdata/getdoctors'
+const getConsultationsUrl = 'http://localhost:8080/doctordata/getpatients'
 
 const Patients = () => {
     const [doctorsData, setDoctorsData] = useState([])
     const[name, setName] = useState(null)
-    const[specialization, setSpecialization] = useState(null)
 
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-          tryfetchdoctors()
+            tryfetchpatients()
         }
     }
-    const setdocname = (name) => {
+    const setpacname = (name) => {
     setName(name)
     if(name == '')
         setName(null)
     }
-
-    const setdocspec = (spec) => {
-        setSpecialization(spec)
-        if(spec == 'none') {
-            setSpecialization(null)
-        }
-    }
     
 
-    const tryfetchdoctors = async () => {
-        const getdataform = {name:name, specialization:specialization}
+    const tryfetchpatients = async () => {
+        const getdataform = {name:name}
         const response = await fetch(getConsultationsUrl, {
             method:'POST',
             headers:{'Content-Type':'application/json', 'Access-Control-Allow-Origin': "*",
@@ -41,10 +33,8 @@ const Patients = () => {
         setDoctorsData(responseStatus)
     }
 
-    useEffect(() => {tryfetchdoctors()}, [])
-    const onRowClick = () => {
-        
-    }
+    useEffect(() => {tryfetchpatients()}, [])
+
     return(
         <div className='Body' onKeyDown={handleKeyDown}>
             <DoctorPagesContent/>
@@ -55,24 +45,24 @@ const Patients = () => {
         }
         <div className='doctorsearchbar'>
             <p> Search Patients</p>
-            <input placeholder='doctor name' onChange = {(e) => {setdocname(e.target.value)}}></input>
-            <button onClick={tryfetchdoctors}><img src={lupa} style={{width:20}}></img></button>
+            <input placeholder='patient name' onChange = {(e) => {setpacname(e.target.value)}}></input>
+            <button onClick={tryfetchpatients}><img src={lupa} style={{width:20}}></img></button>
 
         </div>
         <table className='doctortable'>
             <tr>
                 <th>First Name  | Surname</th>
-                <th>Specialization</th>
+                <th>Birthdate</th>
                 {/* to={'profile/' + ddata['id'] */}
             </tr>
-            {/* {
+            {
                 doctorsData !== [] && doctorsData.map((ddata) =>
                     <tr>
                         <td><NavLink style={{textDecoration:"none", display:'static'}} to={'profile/' + ddata['id']}>{ddata['name']}</NavLink></td>
-                        <td>{renderSpecialization(ddata['specialization'])}</td>
+                        <td>{ddata['birthdate']}</td>
                     </tr>
                 )
-            } */}
+            }
         </table>
         </div>
         </div>

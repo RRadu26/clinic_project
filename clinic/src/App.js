@@ -15,6 +15,7 @@ import AppointmentsPage from './components/PatientFiles/AppointmentsPage';
 import ViewDoctor from './components/PatientFiles/ViewDoctor';
 import HomeDoctor from './components/DoctorFiles/HomeDoctor';
 import Patients from './components/DoctorFiles/Patients';
+import ViewPatient from './components/DoctorFiles/ViewPatient';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
     <Route path='patientdoctors/profile/:id' element={<ViewDoctor/>}/>
     <Route path='homepagedoct' element={<HomeDoctor/>}/>
     <Route path='patientlist' element={<Patients/>}/>
+    <Route path='patientlist/profile/:id' element={<ViewPatient/>}/>
 
 
     </Route>

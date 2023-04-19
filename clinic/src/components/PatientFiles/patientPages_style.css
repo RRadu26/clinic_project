@@ -203,3 +203,28 @@ body {
 .buttonc button:hover {
     background-color: rgb(44, 73, 73);
 }
+.patientdetails {
+    border: 1px solid rgb(44, 73, 73);
+    margin: auto;
+    margin-top: 20px;
+
+    width: 50%;
+    width: 400px;
+    background-color:rgba(205, 210, 211, 0.8);
+    color:rgba(45, 65, 68, 0.8);
+}
+.morepacientdata {
+    margin-top: 50px;
+    padding-bottom: 50px;
+    text-decoration: none;
+}
+.morepacientdata img {
+    width: 40px;
+    text-indent: 220px;
+    
+}
+.morepacientdata img:hover {
+    background-color: rgb(109, 185, 185);
+    border-radius: 20px;
+    
+}
