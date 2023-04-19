@@ -141,3 +141,28 @@ body {
     background-color: rgba(70, 102, 107, 0.8);
     color: white;
 }
+.doctorsearchbar {
+    margin-top:100px
+}
+.doctorsearchbar p {
+    margin-bottom:5px;
+    font-size:17px;
+}
+.doctorsearchbar input {
+    margin-top:0px;
+    width:50%;
+    height:22px;
+    font-size:20px;
+    max-width:500px
+}
+.doctorsearchbar button {
+    border:0;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+.doctorsearchbar button:hover {
+    background-color: rgba(70, 102, 107, 0.8);
+}
+.doctorsearchbar select {
+    width:min-content;
+}

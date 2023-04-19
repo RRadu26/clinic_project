@@ -1,5 +1,7 @@
 package com.example.clinic.controller;
 
+import com.example.clinic.dto.RequestLoginDTO;
+import com.example.clinic.dto.getDoctorsDTO;
 import com.example.clinic.security.JWTGenerator;
 import com.example.clinic.service.PatientDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ public class getPatientDataController {
         String email = jwtGenerator.getUsernameFromJWT(token);
         return new ResponseEntity<>(patientDataService.getMyConsultations(email), HttpStatus.OK);
     }
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize(("permitAll"))
     @GetMapping("/myfoodprograms")
@@ -41,10 +44,12 @@ public class getPatientDataController {
         String email = jwtGenerator.getUsernameFromJWT(token);
         return new ResponseEntity<>(patientDataService.getMyFoodPrograms(email), HttpStatus.OK);
     }
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize(("permitAll"))
-    @GetMapping("/getdoctors")
-    public ResponseEntity getdoctorslist() {
-        return new ResponseEntity<>(patientDataService.getDoctors(null, null), HttpStatus.OK);
+    @PostMapping("/getdoctors")
+    public ResponseEntity getdoctorslist(@RequestBody getDoctorsDTO getDoctorsDTO) {
+
+        return new ResponseEntity<>(patientDataService.getDoctors(getDoctorsDTO.getSpecialization(), getDoctorsDTO.getName()), HttpStatus.OK);
     }
 }

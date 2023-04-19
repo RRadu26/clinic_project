@@ -11,6 +11,7 @@ import HomePatient from './components/PatientFiles/HomePatient';
 import Consulations from './components/PatientFiles/Consultations';
 import FoodPrograms from './components/PatientFiles/FoodPrograms'
 import Doctors from './components/PatientFiles/Doctors';
+import AppointmentsPage from './components/PatientFiles/AppointmentsPage';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
     <Route path='patientconsultations' element={<Consulations/>}/>
     <Route path='patientfoodprograms' element={<FoodPrograms/>}/>
     <Route path='patientdoctors' element={<Doctors/>}/>
+    <Route path='patientappointments' element={<AppointmentsPage/>}/>
 
     </Route>
   )

@@ -22,16 +22,30 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             "FROM " +
             "Consultation c, Account d_acc, Account p_acc " +
             "WHERE " +
-            "c.doc_id = d_acc.id AND c.patient_id = p_acc.id", nativeQuery = false)
+            "c.doc_id = d_acc.id AND c.patient_id = p_acc.id AND p_acc.email = ?1", nativeQuery = false)
     List<ConsultationDTO> getMyConsultations(String email);
 
     @Query(value = "SELECT new com.example.clinic.dto.FoodProgramDTO(prog.name, CONCAT(d.first_name, ' ', d.surname),prog.data, prog.date)" +
             "FROM FoodProgram prog, Account p, Account d " +
-            "WHERE prog.d_code=d.id AND prog.p_code = p.id AND p.id = 2")
+            "WHERE prog.d_code=d.id AND prog.p_code = p.id AND p.email = ?1")
     List<FoodProgramDTO> getMyFoodPrograms(String email);
 
     @Query(value = "SELECT new com.example.clinic.dto.DoctorForListDTO(d.id ,CONCAT(d.first_name, ' ', d.surname), d.specialization)" +
             "FROM Account d " +
             "WHERE d.accType = 2 ")
     List<DoctorForListDTO> getAllDoctors();
+
+    @Query(value = "SELECT new com.example.clinic.dto.DoctorForListDTO(d.id ,CONCAT(d.first_name, ' ', d.surname), d.specialization)" +
+            "FROM Account d " +
+            "WHERE d.accType = 2 AND CONCAT(d.first_name, ' ', d.surname) LIKE %?1%")
+    List<DoctorForListDTO> getNamedDoctors(String name);
+
+    @Query(value = "SELECT new com.example.clinic.dto.DoctorForListDTO(d.id ,CONCAT(d.first_name, ' ', d.surname), d.specialization)" +
+            "FROM Account d " +
+            "WHERE d.accType = 2 AND d.specialization = ?1")
+    List<DoctorForListDTO> getSpecialisedDoctors(String specialization);
+    @Query(value = "SELECT new com.example.clinic.dto.DoctorForListDTO(d.id ,CONCAT(d.first_name, ' ', d.surname), d.specialization)" +
+            "FROM Account d " +
+            "WHERE d.accType = 2 AND CONCAT(d.first_name, ' ', d.surname) LIKE %?1% AND d.specialization = ?2")
+    List<DoctorForListDTO> getNamedSpecialisedDoctors(String name, String specialization);
 }

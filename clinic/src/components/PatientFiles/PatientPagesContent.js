@@ -38,7 +38,7 @@ const PatientPagesContent = () => {
 
             <div className="Menu">
                 <p className='mtext'><NavLink to = "/homepage" style={{textDecoration: "none", color:'rgb(237, 243, 243)', marginLeft:20}}>Home</NavLink></p>
-                <p className='mtext'><NavLink to = "/register" style={{textDecoration: "none", color:'rgb(237, 243, 243)', marginLeft:20}}>Appointments</NavLink></p>
+                <p className='mtext'><NavLink to = "/patientappointments" style={{textDecoration: "none", color:'rgb(237, 243, 243)', marginLeft:20}}>Appointments</NavLink></p>
                 <p className='mtext'><NavLink to = "/patientdoctors" style={{textDecoration: "none", color:'rgb(237, 243, 243)', marginLeft:20}}>Doctors</NavLink></p>
                 <p className='mtext'><NavLink to = "/patientconsultations" style={{textDecoration: "none", color:'rgb(237, 243, 243)', marginLeft:20}}>Consulations</NavLink></p>
                 <p className='mtext'><NavLink to = "/register" style={{textDecoration: "none", color:'rgb(237, 243, 243)', marginLeft:20}}>Medication</NavLink></p>

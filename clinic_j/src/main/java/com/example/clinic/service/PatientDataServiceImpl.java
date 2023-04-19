@@ -34,8 +34,17 @@ public class PatientDataServiceImpl implements PatientDataService{
 
     @Override
     public List<DoctorForListDTO> getDoctors(String specialization, String name) {
-        if(specialization == null & name == null) {
+        if(specialization == null && name == null) {
             return accountRepository.getAllDoctors();
+        }
+        if(specialization != null && name != null) {
+            return accountRepository.getNamedSpecialisedDoctors(name, specialization);
+        }
+        if(specialization != null) {
+            return accountRepository.getSpecialisedDoctors(specialization);
+        }
+        if(name != null) {
+            return accountRepository.getNamedDoctors(name);
         }
         return null;
     }
