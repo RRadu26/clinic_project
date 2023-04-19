@@ -20,7 +20,7 @@ public class getPatientDataController {
     @Autowired
     private JWTGenerator jwtGenerator;
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PreAuthorize(("permitAll"))
+    @PreAuthorize("hasAnyAuthority('Doctor', 'Patient')")
     @GetMapping("/mydata")
     public ResponseEntity getmydata(@RequestHeader("Authorization") String auth) {
             String token = auth.substring(auth.indexOf("Bearer") + 7, auth.length());
@@ -28,7 +28,7 @@ public class getPatientDataController {
             return new ResponseEntity<>(patientDataService.getPatientData(email),HttpStatus.OK);
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PreAuthorize(("permitAll"))
+    @PreAuthorize(("hasAuthority('Patient')"))
     @GetMapping("/myconsultations")
     public ResponseEntity getmyconsultations(@RequestHeader("Authorization") String auth) {
         String token = auth.substring(auth.indexOf("Bearer") + 7, auth.length());
@@ -37,7 +37,7 @@ public class getPatientDataController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PreAuthorize(("permitAll"))
+    @PreAuthorize(("hasAuthority('Patient')"))
     @GetMapping("/myfoodprograms")
     public ResponseEntity getmyfoodprograms(@RequestHeader("Authorization") String auth) {
         String token = auth.substring(auth.indexOf("Bearer") + 7, auth.length());
@@ -46,7 +46,7 @@ public class getPatientDataController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PreAuthorize(("permitAll"))
+    @PreAuthorize(("hasAuthority('Patient')"))
     @PostMapping("/getdoctors")
     public ResponseEntity getdoctorslist(@RequestBody getDoctorsDTO getDoctorsDTO) {
 

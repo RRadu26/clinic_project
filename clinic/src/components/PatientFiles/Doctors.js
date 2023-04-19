@@ -2,6 +2,7 @@ import { Component } from 'react'
 import PatientPagesContent from './PatientPagesContent'
 import { useEffect, useState } from 'react'
 import lupa from './images/icon_lupa.png'
+import { Link, NavLink } from 'react-router-dom'
 const getConsultationsUrl = 'http://localhost:8080/patientdata/getdoctors'
 const Doctors = () => {
     const [doctorsData, setDoctorsData] = useState([])
@@ -59,6 +60,9 @@ const Doctors = () => {
     }
 
     useEffect(() => {tryfetchdoctors()}, [])
+    const onRowClick = () => {
+        
+    }
     return(
         <div className='Body' onKeyDown={handleKeyDown}>
             <PatientPagesContent/>
@@ -69,9 +73,10 @@ const Doctors = () => {
         }
         <div className='doctorsearchbar'>
             <p> Search Doctors</p>
-            <input onChange = {(e) => {setdocname(e.target.value)}}></input>
+            <input placeholder='doctor name' onChange = {(e) => {setdocname(e.target.value)}}></input>
             <select style={{marginLeft:20}} value={specialization} onChange = {(e) => {setdocspec(e.target.value)}}>
-                    <option value="none">Specialization</option>
+                    <option value="" disabled selected hidden>Choose specialization</option>
+                    <option value="none">None</option>
                     <option value="s1">Allergy and immunology</option>
                     <option value="s2">Dermatology</option>
                     <option value="s3">Family medicine</option>
@@ -86,15 +91,16 @@ const Doctors = () => {
         </div>
         <table className='doctortable'>
             <tr>
-                <th>Name</th>
+                <th>First Name  | Surname</th>
                 <th>Specialization</th>
+                {/* to={'profile/' + ddata['id'] */}
             </tr>
             {
                 doctorsData !== [] && doctorsData.map((ddata) =>
-                <tr>
-                    <td>{ddata['name']}</td>
-                    <td>{renderSpecialization(ddata['specialization'])}</td>
-                </tr>
+                    <tr>
+                        <td><NavLink style={{textDecoration:"none", display:'static'}} to={'profile/' + ddata['id']}>{ddata['name']}</NavLink></td>
+                        <td>{renderSpecialization(ddata['specialization'])}</td>
+                    </tr>
                 )
             }
         </table>

@@ -12,10 +12,13 @@ import Consulations from './components/PatientFiles/Consultations';
 import FoodPrograms from './components/PatientFiles/FoodPrograms'
 import Doctors from './components/PatientFiles/Doctors';
 import AppointmentsPage from './components/PatientFiles/AppointmentsPage';
+import ViewDoctor from './components/PatientFiles/ViewDoctor';
+import HomeDoctor from './components/DoctorFiles/HomeDoctor';
+import Patients from './components/DoctorFiles/Patients';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-
+    
     <Route path='/' element= {<Login/>} />
     <Route path='register' element= {<Register/>} />
     <Route path='registerdoctor' element={<RegisterDoctor/>}/>
@@ -26,6 +29,10 @@ const router = createBrowserRouter(
     <Route path='patientfoodprograms' element={<FoodPrograms/>}/>
     <Route path='patientdoctors' element={<Doctors/>}/>
     <Route path='patientappointments' element={<AppointmentsPage/>}/>
+    <Route path='patientdoctors/profile/:id' element={<ViewDoctor/>}/>
+    <Route path='homepagedoct' element={<HomeDoctor/>}/>
+    <Route path='patientlist' element={<Patients/>}/>
+
 
     </Route>
   )

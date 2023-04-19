@@ -91,6 +91,7 @@ const Login = () => {
                 } else if(responseStatus.accType == 'Doctor') {
                     sessionStorage.setItem("doctor_authenticated", true)
                     localStorage.setItem("accType", 'Doctor')
+                    navigate('/homepagedoct')
                 }
             } catch(error) {
                 console.log("failed to login")

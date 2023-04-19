@@ -19,7 +19,7 @@ public class PatientDataServiceImpl implements PatientDataService{
     @Override
     public userDataDTO getPatientData(String email) {
         Account acc = accountRepository.getMyData(email).get(0);
-        userDataDTO ret = new userDataDTO(acc.getFirst_name(), acc.getSurname(), acc.getBirthdate(), acc.getSpecialization(), acc.getEducation());
+        userDataDTO ret = new userDataDTO(acc.getId(), acc.getFirst_name(), acc.getSurname(), acc.getBirthdate(), acc.getSpecialization(), acc.getEducation());
         return ret;
     }
     @Override

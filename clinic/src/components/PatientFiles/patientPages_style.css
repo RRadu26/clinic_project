@@ -166,3 +166,40 @@ body {
 .doctorsearchbar select {
     width:min-content;
 }
+.requestappo {
+    color:rgba(45, 65, 68, 0.8);
+    background-color:rgba(205, 210, 211, 0.8);
+
+    text-align: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    width: 40%;
+    max-width: 400px;
+    margin-top: 30px;
+    border: solid rgba(70, 102, 107, 0.8) 2px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;    
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    height: 500px;
+}
+.requestappo input{
+    width: 80%;
+    max-width: 300px;
+    height: 23px;
+    font-size: 22px;
+}
+.buttonc button {
+    border-radius: 5px;
+    font-size: 25px;
+    color :white;
+    width: 150px;
+    height:40px;
+    background-color: rgb(66, 109, 110);
+    margin-top: 30px;
+}
+.buttonc button:hover {
+    background-color: rgb(44, 73, 73);
+}
