@@ -12,7 +12,7 @@ const Login = () => {
         if(sessionStorage.getItem("patient_authenticated")) {
             navigate('/homepage')
         } else if(sessionStorage.getItem("doctor_authenticated")) {
-            
+            navigate('homepagedoct')
         } else if(localStorage.getItem("token") != null) {
             const tokenform = {accessToken:localStorage.token}
             console.log(tokenform)
@@ -30,6 +30,7 @@ const Login = () => {
                     } else if(localStorage.getItem('accType') == 'Doctor') {
                         sessionStorage.setItem("doctor_authenticated", true)
                         localStorage.setItem("accType", 'Doctor')
+                        navigate('homepagedoct')
                     }
                 }
             } catch(error) {

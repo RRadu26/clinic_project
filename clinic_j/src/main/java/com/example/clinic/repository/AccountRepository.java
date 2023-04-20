@@ -58,4 +58,15 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Query(value= "SELECT new com.example.clinic.dto.PatientForListDTO(p.id, CONCAT(p.first_name, ' ', p.surname), p.birthdate)" +
             "FROM Account p WHERE p.id=?1 ")
     PatientForListDTO getPatientById(int id);
+    @Query(value= "SELECT " +
+            "new com.example.clinic.dto.ConsultationDTO(c.name, c.c_data, c.diagnosis, CONCAT(d_acc.first_name, ' ',d_acc.surname), c.date) " +
+            "FROM " +
+            "Consultation c, Account d_acc, Account p_acc " +
+            "WHERE " +
+            "c.doc_id = d_acc.id AND c.patient_id = p_acc.id AND p_acc.id = ?1", nativeQuery = false)
+    List<ConsultationDTO> getPatientConsultations(int id);
+    @Query(value = "SELECT new com.example.clinic.dto.FoodProgramDTO(prog.name, CONCAT(d.first_name, ' ', d.surname),prog.data, prog.date)" +
+            "FROM FoodProgram prog, Account p, Account d " +
+            "WHERE prog.d_code=d.id AND prog.p_code = p.id AND p.id = ?1")
+    List<FoodProgramDTO> getPatientFoodPrograms(int id);
 }

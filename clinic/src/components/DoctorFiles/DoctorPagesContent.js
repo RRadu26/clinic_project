@@ -24,7 +24,6 @@ const DoctorPagesContent = () => {
             })
             const responseStatus = await response.json()
             setUsername(responseStatus['surname'] + ' ' + responseStatus['first_name'])
-            console.log(responseStatus['id'])
         }
     const logout = () => {
         localStorage.clear();

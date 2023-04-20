@@ -7,6 +7,7 @@ import com.example.clinic.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
     @Autowired
     private AccountService accountService;
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("permitAll"))
     @PostMapping("/adddoctor")
     public ResponseEntity adddoctor(@RequestBody DoctorDTO doctorDTO) {
         try {
@@ -43,7 +45,8 @@ public class AccountController {
         }
         return new ResponseEntity<>("Saved", HttpStatus.BAD_REQUEST);
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("permitAll"))
     @PostMapping("/addpatient")
     public ResponseEntity addpatient(@RequestBody PatientDTO patientDTO) {
         try {

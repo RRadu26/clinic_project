@@ -1,8 +1,9 @@
 package com.example.clinic.controller;
 
-import com.example.clinic.dto.getDoctorsDTO;
-import com.example.clinic.dto.getPatientDTO;
-import com.example.clinic.dto.getPatientsDTO;
+import com.example.clinic.dto.*;
+import com.example.clinic.model.Account;
+import com.example.clinic.model.Consultation;
+import com.example.clinic.model.FoodProgram;
 import com.example.clinic.security.JWTGenerator;
 import com.example.clinic.service.DoctorDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,60 @@ public class getDoctorDataController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize(("hasAuthority('Doctor')"))
     @PostMapping("/getpatientbyid")
-    public ResponseEntity getPatientById(@RequestBody getPatientDTO getPatientsDTO)  {
-        return new ResponseEntity<>(doctorDataService.getPatientById(getPatientsDTO.getId()), HttpStatus.OK);
+    public ResponseEntity getPatientById(@RequestBody getPatientDTO getPatientDTO)  {
+        return new ResponseEntity<>(doctorDataService.getPatientById(getPatientDTO.getId()), HttpStatus.OK);
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("hasAuthority('Doctor')"))
+    @PostMapping("/getpatientconsultation")
+    public ResponseEntity getPatientConsultations(@RequestBody getPatientDTO getPatientDTO) {
+        return new ResponseEntity<>(doctorDataService.getPatientConsultations(getPatientDTO.getId()), HttpStatus.OK);
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("hasAuthority('Doctor')"))
+    @PostMapping("/getpatientfoodprogram")
+    public ResponseEntity getPatientFoodPrograms(@RequestBody getPatientDTO getPatientDTO) {
+        return new ResponseEntity<>(doctorDataService.getPatientFoodPrograms(getPatientDTO.getId()), HttpStatus.OK);
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("hasAuthority('Doctor')"))
+    @PostMapping("/addconsultation")
+    public ResponseEntity addConsultation(@RequestBody PostConsultationDTO postConsultationDTO) {
+        try {
+            Consultation consultation = new Consultation();
+
+            consultation.setC_data(postConsultationDTO.getC_data());
+            consultation.setDate(postConsultationDTO.getDate());
+            consultation.setDiagnosis(postConsultationDTO.getDiagnosis());
+            consultation.setName(postConsultationDTO.getName());
+            consultation.setDoc_id(postConsultationDTO.getDoc_id());
+            consultation.setPatient_id(postConsultationDTO.getPatient_id());
+
+            doctorDataService.saveConsultation(consultation);
+        } catch (RuntimeException e) {
+                return new ResponseEntity<>("Bad Consultation", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Saved", HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("hasAuthority('Doctor')"))
+    @PostMapping("/addfoodprogram")
+    public ResponseEntity addFoodProgram(@RequestBody PostFoodProgramDTO postFoodProgramDTO) {
+        try {
+            FoodProgram foodProgram = new FoodProgram();
+            foodProgram.setData(postFoodProgramDTO.getData());
+            foodProgram.setDate(postFoodProgramDTO.getDate());
+            foodProgram.setName(postFoodProgramDTO.getName());
+            foodProgram.setD_code(postFoodProgramDTO.getD_code());
+            foodProgram.setP_code(postFoodProgramDTO.getP_code());
+
+            doctorDataService.saveFoodProgram(foodProgram);
+        } catch(RuntimeException e) {
+            return new ResponseEntity<>("Bad Food Program", HttpStatus.BAD_REQUEST);
+
+        }
+        return new ResponseEntity<>("Saved", HttpStatus.OK);
     }
+}
+

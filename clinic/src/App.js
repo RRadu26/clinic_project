@@ -16,6 +16,12 @@ import ViewDoctor from './components/PatientFiles/ViewDoctor';
 import HomeDoctor from './components/DoctorFiles/HomeDoctor';
 import Patients from './components/DoctorFiles/Patients';
 import ViewPatient from './components/DoctorFiles/ViewPatient';
+import DoctorViewConsultation from './components/DoctorFiles/DoctViewConsultations'
+import DoctorViewFoodPrograms from './components/DoctorFiles/DoctorViewFoodPrograms';
+import AddConsultation from './components/DoctorFiles/AddConsoltation';
+import AddFoodProgram from './components/DoctorFiles/AddFoodProgram';
+import AddReceipt from './components/DoctorFiles/AddReceipt';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -34,6 +40,13 @@ const router = createBrowserRouter(
     <Route path='homepagedoct' element={<HomeDoctor/>}/>
     <Route path='patientlist' element={<Patients/>}/>
     <Route path='patientlist/profile/:id' element={<ViewPatient/>}/>
+    <Route path='patientlist/profile/:id/consultations' element={<DoctorViewConsultation/>}/>
+    <Route path='patientlist/profile/:id/foodprograms' element={<DoctorViewFoodPrograms/>}/>
+
+    <Route path='patientlist/profile/:id/newconsultation' element={<AddConsultation/>}/>
+    <Route path='patientlist/profile/:id/newfoodprogram' element={<AddFoodProgram/>}/>
+    <Route path='patientlist/profile/:id/newmedication' element={<AddReceipt/>}/>
+
 
 
     </Route>
