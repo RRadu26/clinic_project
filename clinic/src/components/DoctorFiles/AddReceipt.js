@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import lupa from '../PatientFiles/images/icon_lupa.png'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import DoctorPagesContent from './DoctorPagesContent'
 import add from './add.png'
 import remove from './remove.png'
@@ -8,6 +7,7 @@ const getMedicationURL = 'http://localhost:8080/doctordata/savemedication'
 const getDataUrl = 'http://localhost:8080/patientdata/mydata'
 
 const AddReceipt = () => {
+    const navigate = useNavigate()
     const [date, setDate] = useState('');
     const [namer, setName] = useState('');
     const [observations, setObservations] = useState('');
@@ -17,7 +17,19 @@ const AddReceipt = () => {
 
     const [error, setError] = useState(false)
 
-    const valid = () => {
+    const valid = (l) => {
+        if(date == '')
+            return false
+        if(namer == '')
+            return false  
+        if(observations == '')
+            return false
+        for(let e = 0; e < l.length ; e++) {
+            if(l[e]['name'] == '')
+                return false
+            if(l[e]['specifications'] == '')
+                return false
+        }
         return true
     }
 
@@ -42,7 +54,7 @@ const AddReceipt = () => {
                     return {name:drug['name'], specifications:drug['specifications']}
                 }
             )           
-        if(valid()) {
+        if(valid(l)) {
             setError(false)
 
             try {
@@ -54,6 +66,9 @@ const AddReceipt = () => {
                     body:JSON.stringify(receipt)
                 })
                 const responseStatus = await response.text()
+                if(responseStatus == 'Saved')
+                    navigate('../../../homedoct/added')
+
             } catch(error) {
                 console.log('Bad request')
             }

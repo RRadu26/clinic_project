@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import lupa from '../PatientFiles/images/icon_lupa.png'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import DoctorPagesContent from './DoctorPagesContent'
 const getConsultationsUrl = 'http://localhost:8080/doctordata/addconsultation'
 const getDataUrl = 'http://localhost:8080/patientdata/mydata'
 
 
 const AddConsultation = () => {
+    const navigate = useNavigate()
+
     const [date, setDate] = useState('');
     const [name, setName] = useState('');
     const [data, setData] = useState('');
@@ -53,6 +54,8 @@ const AddConsultation = () => {
         })
         const responseStatus = await response.text()
         console.log(responseStatus)
+        if(responseStatus == 'Saved')
+            navigate('../../../homedoct/added')
         } else {
             setError(true)
         }

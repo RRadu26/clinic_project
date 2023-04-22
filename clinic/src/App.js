@@ -24,6 +24,7 @@ import AddConsultation from './components/DoctorFiles/AddConsoltation';
 import AddFoodProgram from './components/DoctorFiles/AddFoodProgram';
 import AddReceipt from './components/DoctorFiles/AddReceipt';
 import DoctorViewMedication from './components/DoctorFiles/DoctorViewMedication';
+import Added from './components/DoctorFiles/Added';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -52,6 +53,7 @@ const router = createBrowserRouter(
     <Route path='patientlist/profile/:id/newconsultation' element={<AddConsultation/>}/>
     <Route path='patientlist/profile/:id/newfoodprogram' element={<AddFoodProgram/>}/>
     <Route path='patientlist/profile/:id/newmedication' element={<AddReceipt/>}/>
+    <Route path='homedoct/added' element={<Added/>}/>
 
 
 

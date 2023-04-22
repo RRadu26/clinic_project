@@ -32,6 +32,8 @@ class Forgotpass extends React.Component {
     render() {
     return (
         <div className='base'>
+            <div className="login">
+
             <div className= "password_change">
                 <p style={{fontSize: 35,paddingTop: 30}}>Forgot Password</p>
                 <p style={{fontSize: 17, textAlign: 'start', margin: 10}}>Please enter the email address you'd like your password reset information send to</p>
@@ -47,6 +49,7 @@ class Forgotpass extends React.Component {
                     <p style={{fontSize:17, marginTop:250}}>Not a member? <NavLink to = "../register" style={{textDecoration: "none"}}>Register</NavLink> </p>
 
                 </form>
+            </div>
             </div>
         </div>
     );

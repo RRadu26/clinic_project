@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
-import lupa from '../PatientFiles/images/icon_lupa.png'
 import { useParams } from 'react-router-dom'
 import DoctorPagesContent from './DoctorPagesContent'
+import { useNavigate } from 'react-router-dom'
 const getFoodProgramsUrl = 'http://localhost:8080/doctordata/addfoodprogram'
 const getDataUrl = 'http://localhost:8080/patientdata/mydata'
 
 const AddFoodProgram = () => {
+    const navigate = useNavigate()
+
     const [date, setDate] = useState('');
     const [name, setName] = useState('');
     const [data, setData] = useState('');
@@ -48,6 +50,8 @@ const AddFoodProgram = () => {
                     body:JSON.stringify(foodprogram)
                 })
                 const responseStatus = await response.text()
+                if(responseStatus =='Saved')
+                    navigate('../../../homedoct/added')
             } catch(error) {
                 console.log('Bad request')
             }
@@ -60,6 +64,7 @@ const AddFoodProgram = () => {
         <div className='Body'>
             <DoctorPagesContent/>
             <div className='DATAPAGE'>
+                
                 <div className="consappo">
                         <h2 style={{textAlign:"center"}}>Add Food Program</h2>
                         <form onSubmit={HandleSubmit}>
