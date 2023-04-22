@@ -1,14 +1,12 @@
 package com.example.clinic.service;
 
-import com.example.clinic.dto.ConsultationDTO;
-import com.example.clinic.dto.DoctorForListDTO;
-import com.example.clinic.dto.FoodProgramDTO;
-import com.example.clinic.dto.userDataDTO;
+import com.example.clinic.dto.*;
 import com.example.clinic.model.Account;
 import com.example.clinic.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,6 +45,14 @@ public class PatientDataServiceImpl implements PatientDataService{
             return accountRepository.getNamedDoctors(name);
         }
         return null;
+    }
+    @Override
+    public List<ReceiptDTO> getMyReceipts(String email) {
+        ArrayList<ReceiptDTO> receipts = (ArrayList<ReceiptDTO>) accountRepository.getMyReceipts(email);
+        for(int i = 0; i < receipts.size(); i++) {
+            receipts.get(i).setDrugs(accountRepository.getReceiptDrugs(receipts.get(i).getCode()));
+        }
+        return receipts;
     }
 
 }

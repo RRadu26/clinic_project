@@ -10,9 +10,11 @@ import RegisterComplete from './components/Login/RegisterComplete';
 import HomePatient from './components/PatientFiles/HomePatient';
 import Consulations from './components/PatientFiles/Consultations';
 import FoodPrograms from './components/PatientFiles/FoodPrograms'
+import Medication from './components/PatientFiles/Medication';
 import Doctors from './components/PatientFiles/Doctors';
 import AppointmentsPage from './components/PatientFiles/AppointmentsPage';
 import ViewDoctor from './components/PatientFiles/ViewDoctor';
+
 import HomeDoctor from './components/DoctorFiles/HomeDoctor';
 import Patients from './components/DoctorFiles/Patients';
 import ViewPatient from './components/DoctorFiles/ViewPatient';
@@ -21,7 +23,7 @@ import DoctorViewFoodPrograms from './components/DoctorFiles/DoctorViewFoodProgr
 import AddConsultation from './components/DoctorFiles/AddConsoltation';
 import AddFoodProgram from './components/DoctorFiles/AddFoodProgram';
 import AddReceipt from './components/DoctorFiles/AddReceipt';
-
+import DoctorViewMedication from './components/DoctorFiles/DoctorViewMedication';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -34,6 +36,8 @@ const router = createBrowserRouter(
     <Route path='homepage' element={<HomePatient/>}/>
     <Route path='patientconsultations' element={<Consulations/>}/>
     <Route path='patientfoodprograms' element={<FoodPrograms/>}/>
+    <Route path='patientmedication' element={<Medication/>}/>
+
     <Route path='patientdoctors' element={<Doctors/>}/>
     <Route path='patientappointments' element={<AppointmentsPage/>}/>
     <Route path='patientdoctors/profile/:id' element={<ViewDoctor/>}/>
@@ -42,6 +46,8 @@ const router = createBrowserRouter(
     <Route path='patientlist/profile/:id' element={<ViewPatient/>}/>
     <Route path='patientlist/profile/:id/consultations' element={<DoctorViewConsultation/>}/>
     <Route path='patientlist/profile/:id/foodprograms' element={<DoctorViewFoodPrograms/>}/>
+    <Route path='patientlist/profile/:id/medication' element={<DoctorViewMedication/>}/>
+
 
     <Route path='patientlist/profile/:id/newconsultation' element={<AddConsultation/>}/>
     <Route path='patientlist/profile/:id/newfoodprogram' element={<AddFoodProgram/>}/>

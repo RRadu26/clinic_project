@@ -26,7 +26,10 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             "FROM FoodProgram prog, Account p, Account d " +
             "WHERE prog.d_code=d.id AND prog.p_code = p.id AND p.email = ?1")
     List<FoodProgramDTO> getMyFoodPrograms(String email);
-
+    @Query(value = "SELECT new com.example.clinic.dto.ReceiptDTO(r.id, CONCAT(d.first_name, ' ', d.surname), r.name, r.observations, r.date) " +
+            "FROM Receipt r, Account d, Account a " +
+            "WHERE r.p_code = a.id AND d.id = r.d_code AND a.email = ?1")
+    List<ReceiptDTO> getMyReceipts(String email);
     @Query(value = "SELECT new com.example.clinic.dto.DoctorForListDTO(d.id ,CONCAT(d.first_name, ' ', d.surname), d.specialization)" +
             "FROM Account d " +
             "WHERE d.accType = 2 ")
@@ -65,8 +68,18 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             "WHERE " +
             "c.doc_id = d_acc.id AND c.patient_id = p_acc.id AND p_acc.id = ?1", nativeQuery = false)
     List<ConsultationDTO> getPatientConsultations(int id);
-    @Query(value = "SELECT new com.example.clinic.dto.FoodProgramDTO(prog.name, CONCAT(d.first_name, ' ', d.surname),prog.data, prog.date)" +
+    @Query(value = "SELECT new com.example.clinic.dto.FoodProgramDTO(prog.name, CONCAT(d.first_name, ' ', d.surname),prog.data, prog.date) " +
             "FROM FoodProgram prog, Account p, Account d " +
             "WHERE prog.d_code=d.id AND prog.p_code = p.id AND p.id = ?1")
     List<FoodProgramDTO> getPatientFoodPrograms(int id);
+
+    @Query(value = "SELECT new com.example.clinic.dto.ReceiptDTO(r.id, CONCAT(d.first_name, ' ', d.surname), r.name, r.observations, r.date) " +
+            "FROM Receipt r, Account d " +
+            "WHERE r.p_code = ?1 AND d.id = r.d_code")
+    List<ReceiptDTO> getPatientReceipts(int id);
+
+    @Query(value = "Select new com.example.clinic.dto.DrugDTO(name, specifications)" +
+            "FROM Drugs " +
+            "WHERE id_receipt= ?1")
+    List<DrugDTO> getReceiptDrugs(int id_receipt);
 }

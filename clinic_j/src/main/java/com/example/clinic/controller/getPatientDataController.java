@@ -44,12 +44,18 @@ public class getPatientDataController {
         String email = jwtGenerator.getUsernameFromJWT(token);
         return new ResponseEntity<>(patientDataService.getMyFoodPrograms(email), HttpStatus.OK);
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize(("hasAuthority('Patient')"))
+    @GetMapping("/myreceipts")
+    public ResponseEntity getmyreceipts(@RequestHeader("Authorization") String auth) {
+        String token = auth.substring(auth.indexOf("Bearer") + 7, auth.length());
+        String email = jwtGenerator.getUsernameFromJWT(token);
+        return new ResponseEntity<>(patientDataService.getMyReceipts(email), HttpStatus.OK);
+    }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize(("hasAuthority('Patient')"))
     @PostMapping("/getdoctors")
     public ResponseEntity getdoctorslist(@RequestBody getDoctorsDTO getDoctorsDTO) {
-
         return new ResponseEntity<>(patientDataService.getDoctors(getDoctorsDTO.getSpecialization(), getDoctorsDTO.getName()), HttpStatus.OK);
     }
 }

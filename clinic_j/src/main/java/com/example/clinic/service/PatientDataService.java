@@ -1,9 +1,6 @@
 package com.example.clinic.service;
 
-import com.example.clinic.dto.ConsultationDTO;
-import com.example.clinic.dto.DoctorForListDTO;
-import com.example.clinic.dto.FoodProgramDTO;
-import com.example.clinic.dto.userDataDTO;
+import com.example.clinic.dto.*;
 
 import java.util.List;
 
@@ -13,4 +10,6 @@ public interface PatientDataService {
 
     List<FoodProgramDTO> getMyFoodPrograms(String email);
     List<DoctorForListDTO> getDoctors(String specialization, String name);
+
+    List<ReceiptDTO> getMyReceipts(String email);
 }

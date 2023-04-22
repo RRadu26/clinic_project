@@ -251,3 +251,39 @@ body {
     font-size: 20px;
     width: 80%;
 }
+.medicationtable {
+    width: 100%;
+    margin: auto;
+    margin-top: 20px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-bottom: 20px;
+}
+.medicationtable td {
+    border: 1px solid #eeecec;
+    padding: 25px;
+    margin-top: 200px;
+    background-color:  rgba(70, 102, 107, 0.2);
+
+}
+
+.medicationtable th {
+
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgba(70, 102, 107, 0.8);
+    color: white;
+
+}
+.medicationtable img:hover {
+    background-color:  rgba(70, 102, 107, 0.8);
+}
+.buttona button{
+    background-color: transparent;
+    border-radius: 10px;
+    width: fit-content;
+}
+.buttona button:hover {
+    background-color: rgb(44, 73, 73);
+}
